@@ -1,0 +1,65 @@
+class Graph
+/* 
+	Class that holds a set of Locations that represent Nodes. 
+*/
+
+instance variables
+  private locations:set of (Location); /* represents nodes in a typical graph */
+  
+operations
+
+	/* Constructor Graph - with set locations that are Nodes - initially it is empty*/
+  public Graph : () ==> Graph
+  Graph() == (
+  	locations := {};
+	  return self
+  );
+  
+  /* Adds a location to the graph */
+  public addLocation : Location ==> ()
+  addLocation(newLocation) == (
+  	locations := {newLocation} union locations;
+  )
+  pre not newLocation in set locations
+  post newLocation in set locations;
+  
+	/* Returns a set of Locations(Nodes) */
+  public getLocations : () ==> set of (Location)
+  getLocations() == (
+  	return locations;
+  );
+  
+  /* Removes a Location from the graph */
+  /* TODO - Missing to remove the edges from the nodes that contain this location */
+  public removeLocation : Location ==> ()
+  removeLocation(deleteLocation) == (
+  	locations := locations \ {deleteLocation};
+  )
+  pre deleteLocation in set locations
+  post not deleteLocation in set locations;
+  
+  public searchLocationByID : nat ==> Location
+  searchLocationByID(locationID) == (
+  	dcl tempCity : Location;
+  	for all city in set locations do (
+  		if city.getID() = locationID 
+  		then tempCity := city;
+  	);
+  	return tempCity;
+  );
+  
+  public locationExistsByID : nat ==> bool
+  locationExistsByID(locationID) == (
+  	for all city in set locations do (
+  		if city.getID() = locationID 
+  		then return true;
+  	);
+  	return false;
+  );
+  
+  
+  
+  
+  	
+
+end Graph

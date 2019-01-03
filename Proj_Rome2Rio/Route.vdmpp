@@ -1,0 +1,61 @@
+class Route
+/*
+	Class that represents a connection between two locations
+	stating several information such as id, duration of the trip, destination of the trip
+	transport type of trip and the cost of the trip.
+*/
+
+instance variables
+  private id:nat;
+  private duration:nat1;
+  private destination:Location;
+  private transport:Transport;
+  private price:nat1;
+
+operations
+
+	/* Constructor Route - with id, duration of the trip, destination, transport type and price */
+  public Route : nat * nat1 * Location * Transport * nat1 ==> Route
+  Route(i, dur, dest, transp, pric) == (
+	    id := i;
+	    duration := dur;
+	    destination := dest;
+	    transport := transp;
+	    price := pric;
+    	return self
+    );
+
+	/* ------------------ Getters ------------------ */
+
+	 /* Returns the Route ID */
+  public getID : () ==> nat
+  getID() == (
+  	return id;
+  );
+  
+   /* Returns the Route duration */
+  public getDuration : () ==> nat1
+  getDuration() == (
+  	return duration;
+  );
+  
+   /* Returns the Route destination */
+  public getDestination : () ==> Location
+  getDestination() == (
+  	return destination;
+  );
+  
+   /* Returns the Route transport */
+  public getTransport : () ==> Transport
+  getTransport() == (
+  	return transport;
+  );
+  
+   /* Returns the Route price */
+  public getPrice : () ==> nat1
+  getPrice() == (
+  	return price;
+  );
+  
+
+end Route

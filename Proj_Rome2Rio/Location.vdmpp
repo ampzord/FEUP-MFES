@@ -1,0 +1,64 @@
+class Location
+/*
+	This class represents a location of a city with id and name,
+	it ilustrates the state of Node with Edges in a Graph environment.
+*/
+
+instance variables
+  private id:nat;
+  private name:seq1 of (char);
+  private routes:set of (Route) := {}; /* Edges of a Node(Location) */
+
+operations
+
+	/* Constructor Location - with id, name and empty set of routes*/
+  public Location : nat * seq1 of (char) ==> Location
+  Location(i, n) == (
+	    id := i;
+	    name := n;
+	    return self
+    )
+    post routes = {};
+   
+   
+  /* ------------------ Getters ------------------ */
+  
+  /* Returns the location ID */
+  public getID : () ==> nat
+  getID() == (
+  	return id;
+  );
+  
+  /* Returns the location name */
+  public getName : () ==> seq1 of (char)
+  getName() == (
+  	return name;
+  );
+  
+  /* Returns a set of Routes(Edges) */
+  public getRoutes : () ==> set of (Route)
+  getRoutes() == (
+  	return routes;
+  );
+  
+ 	/* ------------------ Methods ------------------ */
+ 	
+  /* Adds a Route(Edge) to a Location(Node) - Admin Only */
+  public addRoute : Route ==> ()
+  addRoute(newRoute) == (
+  	routes := {newRoute} union routes
+  )
+  pre not newRoute in set routes
+  post newRoute in set routes;
+  
+  /* Removes a Route(Edge) from a Location(Node) - Admin Only */
+  public removeRoute : Route ==> ()
+  removeRoute(deleteRoute) == (
+  	routes  := routes \ {deleteRoute}
+  )
+  pre deleteRoute in set routes
+  post not deleteRoute in set routes;
+  
+  
+
+end Location

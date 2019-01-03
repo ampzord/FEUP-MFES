@@ -1,0 +1,35 @@
+class Platform
+instance variables
+  private insertedStart:Location;
+  private insertedDestination:Location;
+  private graph:Graph;
+  private all_possible_routes: set of seq of Route;
+
+operations
+  public Platform : Graph ==> Platform
+  Platform(g) == (
+  	graph := g;
+  	all_possible_routes := {};
+  	return self
+  );
+
+  public setStart : nat ==> ()
+  setStart(start_pos) == (
+  	if graph.locationExistsByID(start_pos)
+  	then insertedStart := graph.searchLocationByID(start_pos)
+  );
+  
+  public setDestination : nat ==> ()
+  setDestination(destination_pos) == (
+    if graph.locationExistsByID(destination_pos)
+  	then insertedDestination := graph.searchLocationByID(destination_pos)
+  );
+  
+  /*
+  public searchAllPossibleRoutes : () ==> () 
+  searchAllPossibleRoutes() == (
+  	dcl routes : seq of Route := [];
+  	
+	)
+	*/
+end Platform

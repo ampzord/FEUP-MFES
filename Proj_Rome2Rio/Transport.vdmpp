@@ -1,0 +1,33 @@
+class Transport
+/*
+	Class that represents a type of transportation such as Plane, Ferry Bus And Train or more.
+*/
+instance variables
+  private id:nat;
+  private name:seq1 of (char);
+
+operations
+
+	/* Constructor Transport - id and name with length > 0 */
+  public  Transport : nat * seq1 of (char) ==> Transport
+  Transport(i, n) == (
+	    id := i;
+	    name := n;
+    	return self
+    );
+    
+  /* ------------------ Getters ------------------ */
+  
+  /* Returns the transport ID */
+  public getID : () ==> nat
+  getID() == (
+  	return id;
+  );
+  
+  /* Returns the transport name */
+  public getName : () ==> seq1 of (char)
+  getName() == (
+  	return name;
+  );
+
+end Transport
