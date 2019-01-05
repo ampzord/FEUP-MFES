@@ -24,7 +24,7 @@ operations
   /* ------------------ Getters ------------------ */
   
   /* Returns the location ID */
-  public getID : () ==> nat
+  pure public getID : () ==> nat
   getID() == (
   	return id;
   );
@@ -39,6 +39,25 @@ operations
   public getRoutes : () ==> set of (Route)
   getRoutes() == (
   	return routes;
+  );
+  
+  public getRouteByID : nat ==> Route
+  getRouteByID(id) == (
+  	  	dcl tempRoute : Route;
+  	for all route in set routes do (
+  		if route.getID() = id 
+  		then tempRoute := route;
+  	);
+  	return tempRoute;
+  );
+  	
+  public routeExistsByID : nat ==> bool
+  routeExistsByID(routeID) == (
+  	for all route in set routes do (
+  		if route.getID() = routeID 
+  		then return true;
+  	);
+  	return false;
   );
   
  	/* ------------------ Methods ------------------ */

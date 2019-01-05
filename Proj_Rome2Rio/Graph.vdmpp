@@ -15,6 +15,19 @@ operations
 	  return self
   );
   
+    /* ------------------ Getters ------------------ */
+  
+	/* Returns a set of Locations(Nodes) */
+  public getLocations : () ==> set of (Location)
+	  getLocations() == (
+	  	return locations;
+  );
+  
+  public getSize : () ==> nat
+	  getSize() == (
+	  	return card locations;
+  );
+  
   /* Adds a location to the graph */
   public addLocation : Location ==> ()
   addLocation(newLocation) == (
@@ -22,12 +35,6 @@ operations
   )
   pre not newLocation in set locations
   post newLocation in set locations;
-  
-	/* Returns a set of Locations(Nodes) */
-  public getLocations : () ==> set of (Location)
-  getLocations() == (
-  	return locations;
-  );
   
   /* Removes a Location from the graph */
   /* TODO - Missing to remove the edges from the nodes that contain this location */
@@ -58,7 +65,8 @@ operations
   );
   
   
-  
+
+  	
   
   	
 

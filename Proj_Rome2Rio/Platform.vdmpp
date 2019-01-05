@@ -7,11 +7,42 @@ instance variables
 
 operations
   public Platform : Graph ==> Platform
-  Platform(g) == (
-  	graph := g;
-  	all_possible_routes := {};
-  	return self
+	  Platform(g) == (
+	  	graph := g;
+	  	all_possible_routes := {};
+	  	return self
   );
+  
+     /* ------------------ Getters ------------------ */
+   
+  public getAllPossibleRoutes : () ==> set of seq of Route
+	  	getAllPossibleRoutes() ==  return all_possible_routes;
+  
+  public getAllPossibleRoutesSize : () ==> nat
+	  	getAllPossibleRoutesSize() == (
+	  	return card all_possible_routes
+  	);
+  	
+  public getInsertedStart : () ==> Location
+  getInsertedStart() == (
+  	return insertedStart
+  );
+  
+  public getInsertedDestination : () ==> Location
+  getInsertedDestination() == (
+  	return insertedDestination
+  );
+  
+  public getGraph : () ==> Graph
+  getGraph() == (
+  	return graph
+  );
+  
+  public getGraphSize : () ==> nat
+		getGraphSize() == (
+			return graph.getSize();
+	);
+  		
 
   public setStart : nat ==> ()
   setStart(start_pos) == (
@@ -20,16 +51,112 @@ operations
   );
   
   public setDestination : nat ==> ()
-  setDestination(destination_pos) == (
-    if graph.locationExistsByID(destination_pos)
-  	then insertedDestination := graph.searchLocationByID(destination_pos)
+	  setDestination(destination_pos) == (
+	    if graph.locationExistsByID(destination_pos)
+	  	then insertedDestination := graph.searchLocationByID(destination_pos)
   );
   
-  /*
-  public searchAllPossibleRoutes : () ==> () 
-  searchAllPossibleRoutes() == (
+
+  
+  public getAllRoutes : () ==> () 
+  getAllRoutes() == (
   	dcl routes : seq of Route := [];
+  	/*IO`print("Inserted Start: ");
+  	IO`println(insertedStart);
+  	IO`print("Routes: ");
+  	IO`println(routes);*/
+  	  	getAllRoutesUtils(insertedStart, routes);
   	
+	);
+	
+	
+	public getAllRoutesUtils : Location * seq of Route ==> ()
+	getAllRoutesUtils(currLocation, seqRoutes) == (
+		for all route in set currLocation.getRoutes() do (
+			dcl newRoute: seq of Route := seqRoutes;
+			/*
+			IO`print("Utils - newRoute: ");
+	  	IO`println(newRoute);
+	  	
+	  	IO`print("route.getDestination().getID(): ");
+	  	IO`println(route.getDestination().getID());*/
+			
+			if route.getDestination().getID() not in set getVisitedLocations(seqRoutes)
+			then (
+				/*IO`print("Length newRoute: ");
+	  		IO`println(len newRoute);*/
+				newRoute(len newRoute + 1) := route
+				
+			);
+			/*
+			IO`print("Utils - newRoute2: ");
+	  	IO`println(newRoute);*/
+	  
+			
+			if route.getDestination() = insertedDestination 
+			then (
+				all_possible_routes := all_possible_routes union {newRoute};
+				/*IO`print("Arrived Destination: ");
+		  	IO`print(all_possible_routes);*/
+		  	IO`print("\n");
+			)
+			else (
+				dcl numberOfEdges: nat := card route.getDestination().getRoutes();
+				/*IO`print("numberOfEdges: ");
+		  	IO`println(numberOfEdges);*/
+				if route.getDestination().getID() not in set getVisitedLocations(seqRoutes) and numberOfEdges > 0
+				then (
+					getAllRoutesUtils(route.getDestination(),newRoute)
+				);
+			);
+		);
+	);
+	
+	public getVisitedLocations: seq of Route ==> set of nat
+	getVisitedLocations(route_sequence) == (
+		dcl locationsID : set of nat := {insertedStart.getID()};
+		for all route in set elems route_sequence do (
+			--IO`print("route.getDestination().getID(): ");
+		  --IO`println(route.getDestination().getID());
+			locationsID := {route.getDestination().getID()} union locationsID;
+		);
+		--IO`print("getVisitedLocations: ");
+  	--IO`println(locationsID);
+		return locationsID;
+	);
+	
+	public printAllPossiblePaths : () ==> ()
+	printAllPossiblePaths() == (
+		IO`print("Start: ");
+		IO`println(insertedStart.getName());
+		IO`print("Destination: ");
+		IO`println(insertedDestination.getName());
+		IO`print("---------- \n\n");
+		if card all_possible_routes > 0
+		then (
+			for all routes in set all_possible_routes do (
+				IO`print("Start: ");
+				IO`println(insertedStart.getName());
+				printPath(routes);
+			);
+		)
+		else (
+			IO`print("Not Possible");
+			);
+	);
+	
+	public printPath : seq of Route ==> ()
+	printPath(seq_of_route) == (
+		for i=1 to len seq_of_route do (
+			IO`print("Route::");
+			IO`print(seq_of_route(i).getDestination().getName());
+			IO`print("--");
+			IO`print(seq_of_route(i).getTransport().getName());
+			IO`print("--");
+			IO`print(seq_of_route(i).getDuration());
+			IO`print("--");
+			IO`println(seq_of_route(i).getPrice());
+	);
 	)
-	*/
+	
 end Platform
