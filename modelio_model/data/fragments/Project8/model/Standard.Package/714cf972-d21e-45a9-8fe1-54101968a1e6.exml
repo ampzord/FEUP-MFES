@@ -1,0 +1,34 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="project8" version="4">
+  <OBJECT>
+    <ID name="project8" mc="Standard.Package" uid="714cf972-d21e-45a9-8fe1-54101968a1e6"/>
+    <PID name="Project8" mc="Standard.Project" uid="b0abce2f-5809-4912-8ab7-cb09de6bb7cf"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[project8]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedElement">
+        <COMPID name="Basic VDM Types" mc="Standard.Package" uid="faa3a50d-f700-4b17-ac1c-166cbab016b4"/>
+        <COMPID name="Graph" mc="Standard.Class" uid="2d8736f9-3487-4b23-9a7d-edc13a8f59c7"/>
+        <COMPID name="Location" mc="Standard.Class" uid="abbb73a6-e4d0-4d1a-81eb-14bbaf016e9f"/>
+        <COMPID name="Platform" mc="Standard.Class" uid="53de4720-c4b3-4c97-a9c8-c17acc4db3fd"/>
+        <COMPID name="Route" mc="Standard.Class" uid="0cae5f27-cf33-4a33-b9b7-11503a76b77e"/>
+        <COMPID name="Transport" mc="Standard.Class" uid="8b56cee9-f00f-4b58-b5b2-237ca318f506"/>
+        <COMPID name="IO" mc="Standard.Class" uid="cba39430-54e4-4490-b367-f90bc0e2e99b"/>
+        <COMPID name="MyTestCase" mc="Standard.Class" uid="0078aef8-4720-4605-965c-d19e3448741d"/>
+        <COMPID name="TestPlatform" mc="Standard.Class" uid="27b6498f-1d9b-4d24-8010-bffd704d3a6c"/>
+        <COMPID name="Composite VDM Types" mc="Standard.Package" uid="dc72d3af-ea20-4dc0-8b4f-98b766d14462"/>
+        <COMPID name="Binding classes" mc="Standard.Package" uid="b9ba40a7-c93d-4cfb-9460-7be73ebe40ce"/>
+      </COMP>
+      <COMP relation="Product">
+        <COMPID name="project8 Class diagram" mc="Standard.ClassDiagram" uid="11b0abd0-670c-4c19-b4f8-2c2cfd8a208c"/>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

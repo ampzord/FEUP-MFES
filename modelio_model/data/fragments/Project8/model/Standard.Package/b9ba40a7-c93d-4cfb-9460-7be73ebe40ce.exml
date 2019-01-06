@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="Binding classes" version="4">
+  <OBJECT>
+    <ID name="Binding classes" mc="Standard.Package" uid="b9ba40a7-c93d-4cfb-9460-7be73ebe40ce"/>
+    <PID name="project8" mc="Standard.Package" uid="714cf972-d21e-45a9-8fe1-54101968a1e6"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[Binding classes]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedElement">
+        <COMPID name="Set&lt;Location&gt;" mc="Standard.Class" uid="8eeaf900-fc2f-4a85-a9ef-ee4ce51ae4db"/>
+        <COMPID name="Seq&lt;char&gt;" mc="Standard.Class" uid="eba659c3-0339-40ae-bb8e-f6b27fd6b264"/>
+        <COMPID name="Set&lt;Route&gt;" mc="Standard.Class" uid="745c3fcb-d41f-40f1-8adb-cf5e270a4b5b"/>
+        <COMPID name="Set&lt;Seq&lt;Route&gt;&gt;" mc="Standard.Class" uid="00319575-7479-409c-ba87-4fbd8b7dfa27"/>
+        <COMPID name="Seq&lt;Route&gt;" mc="Standard.Class" uid="fc3c4727-52ae-4953-8042-d3dd5e1312d7"/>
+        <COMPID name="Set&lt;nat&gt;" mc="Standard.Class" uid="63007a1c-7cfc-4117-8953-cfaaec491d4b"/>
+        <COMPID name="Set&lt;Transport&gt;" mc="Standard.Class" uid="d1524194-8593-40a3-a806-938a49d26a2d"/>
+        <COMPID name="Product&lt;bool,Optional&lt;p&gt;&gt;" mc="Standard.Class" uid="1acb31ea-f3fb-49f7-b60c-ee5b6b8c5481"/>
+        <COMPID name="Optional&lt;p&gt;" mc="Standard.Class" uid="85549c9e-f577-44de-b6d4-803052275a69"/>
+        <COMPID name="Optional&lt;IO::filedirective&gt;" mc="Standard.Class" uid="14801556-6ec9-4d52-a0ff-111091a654e1"/>
+        <COMPID name="Seq&lt;Any&gt;" mc="Standard.Class" uid="2daffdf8-67fa-43fd-8716-e7ecf3e0c480"/>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>
