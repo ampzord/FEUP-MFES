@@ -1,4 +1,11 @@
 class Platform
+/*
+	Class that represents the application Rome2Rio it holds
+	the inserted start point and destination the user introduces,
+	along with the Graph where all the Nodes(Locations) and also all the possible routes existent
+	(all possible ways to go from a pointA to pointB)
+*/
+
 instance variables
   private insertedStart:Location;
   private insertedDestination:Location;
@@ -13,10 +20,12 @@ operations
 	  	return self
   );
   
-     /* ------------------ Getters ------------------ */
-   
+  /* ------------------ Getters ------------------ */
+  
   public getAllPossibleRoutes : () ==> set of seq of Route
-	  	getAllPossibleRoutes() ==  return all_possible_routes;
+		getAllPossibleRoutes() == (
+	  	return all_possible_routes;
+	  );
   
   public getAllPossibleRoutesSize : () ==> nat
 	  	getAllPossibleRoutesSize() == (
@@ -42,7 +51,9 @@ operations
 		getGraphSize() == (
 			return graph.getSize();
 	);
-  		
+	
+	
+  /* ------------------ Setters ------------------ */
 
   public setStart : nat ==> ()
   setStart(start_pos) == (
@@ -61,50 +72,28 @@ operations
   public getAllRoutes : () ==> () 
   getAllRoutes() == (
   	dcl routes : seq of Route := [];
-  	/*IO`print("Inserted Start: ");
-  	IO`println(insertedStart);
-  	IO`print("Routes: ");
-  	IO`println(routes);*/
-  	  	getAllRoutesUtils(insertedStart, routes);
-  	
+  	getAllRoutesUtils(insertedStart, routes);
 	);
 	
 	
 	public getAllRoutesUtils : Location * seq of Route ==> ()
 	getAllRoutesUtils(currLocation, seqRoutes) == (
 		for all route in set currLocation.getRoutes() do (
-			dcl newRoute: seq of Route := seqRoutes;
-			/*
-			IO`print("Utils - newRoute: ");
-	  	IO`println(newRoute);
-	  	
-	  	IO`print("route.getDestination().getID(): ");
-	  	IO`println(route.getDestination().getID());*/
-			
-			if route.getDestination().getID() not in set getVisitedLocations(seqRoutes)
+			dcl newRoute: seq of Route := seqRoutes;		
+			dcl routeDestinationID : nat := route.getDestination().getID();	
+			if routeDestinationID not in set getVisitedLocations(seqRoutes)
 			then (
-				/*IO`print("Length newRoute: ");
-	  		IO`println(len newRoute);*/
 				newRoute(len newRoute + 1) := route
-				
 			);
-			/*
-			IO`print("Utils - newRoute2: ");
-	  	IO`println(newRoute);*/
-	  
 			
 			if route.getDestination() = insertedDestination 
 			then (
 				all_possible_routes := all_possible_routes union {newRoute};
-				/*IO`print("Arrived Destination: ");
-		  	IO`print(all_possible_routes);*/
-		  	IO`print("\n");
 			)
 			else (
-				dcl numberOfEdges: nat := card route.getDestination().getRoutes();
-				/*IO`print("numberOfEdges: ");
-		  	IO`println(numberOfEdges);*/
-				if route.getDestination().getID() not in set getVisitedLocations(seqRoutes) and numberOfEdges > 0
+				dcl numberOfEdgesInDestination: nat := card route.getDestination().getRoutes();
+				
+				if routeDestinationID not in set getVisitedLocations(seqRoutes) and numberOfEdgesInDestination > 0
 				then (
 					getAllRoutesUtils(route.getDestination(),newRoute)
 				);
@@ -116,47 +105,101 @@ operations
 	getVisitedLocations(route_sequence) == (
 		dcl locationsID : set of nat := {insertedStart.getID()};
 		for all route in set elems route_sequence do (
-			--IO`print("route.getDestination().getID(): ");
-		  --IO`println(route.getDestination().getID());
 			locationsID := {route.getDestination().getID()} union locationsID;
 		);
-		--IO`print("getVisitedLocations: ");
-  	--IO`println(locationsID);
 		return locationsID;
 	);
 	
 	public printAllPossiblePaths : () ==> ()
 	printAllPossiblePaths() == (
+		IO`print("\n");
 		IO`print("Start: ");
 		IO`println(insertedStart.getName());
 		IO`print("Destination: ");
 		IO`println(insertedDestination.getName());
-		IO`print("---------- \n\n");
+		IO`print("--------------------- \n\n");
 		if card all_possible_routes > 0
 		then (
+			dcl local_i : nat1 := 1;
 			for all routes in set all_possible_routes do (
-				IO`print("Start: ");
-				IO`println(insertedStart.getName());
-				printPath(routes);
+				IO`print("Route: ");
+				IO`println(local_i);
+				printRouteInfo(routes);
+				local_i := local_i + 1;
+				IO`print("\n");
 			);
 		)
 		else (
-			IO`print("Not Possible");
+			IO`print("Not Possible to reach the Destination from that Starting Point!");
 			);
 	);
 	
-	public printPath : seq of Route ==> ()
-	printPath(seq_of_route) == (
+	public printRouteInfo : seq of Route ==> ()
+	printRouteInfo(seq_of_route) == (
+		dcl prevRoute : Route;
+		dcl totalTripDuration : nat := 0;
+		dcl totalTripCost : nat := 0;
+		dcl totalTypeOfTransport : set of Transport := {};
 		for i=1 to len seq_of_route do (
-			IO`print("Route::");
-			IO`print(seq_of_route(i).getDestination().getName());
-			IO`print("--");
-			IO`print(seq_of_route(i).getTransport().getName());
-			IO`print("--");
-			IO`print(seq_of_route(i).getDuration());
-			IO`print("--");
-			IO`println(seq_of_route(i).getPrice());
+				if i=1 
+					then (
+						IO`print("Travel from: ");
+						IO`print(insertedStart.getName());
+						IO`print(" to: ");
+						IO`print(seq_of_route(i).getDestination().getName());
+						IO`print(" transport: ");
+						IO`print(seq_of_route(i).getTransport().getName());
+						IO`print(" duration of: ");
+						IO`print(seq_of_route(i).getDuration());
+						IO`print(" with a Price of: ");
+						IO`println(seq_of_route(i).getPrice());
+						totalTripDuration := totalTripDuration + seq_of_route(i).getDuration();
+						totalTripCost := totalTripCost + seq_of_route(i).getPrice();
+						totalTypeOfTransport := totalTypeOfTransport union {seq_of_route(i).getTransport()};
+					)
+					else (
+						IO`print("Travel from: ");
+						IO`print(prevRoute.getDestination().getName());
+						IO`print(" to: ");
+						IO`print(seq_of_route(i).getDestination().getName());
+						IO`print(" transport: ");
+						IO`print(seq_of_route(i).getTransport().getName());
+						IO`print(" duration of: ");
+						IO`print(seq_of_route(i).getDuration());
+						IO`print(" with a Price of: ");
+						IO`println(seq_of_route(i).getPrice());
+						totalTripDuration := totalTripDuration + seq_of_route(i).getDuration();
+						totalTripCost := totalTripCost + seq_of_route(i).getPrice();
+						totalTypeOfTransport := totalTypeOfTransport union {seq_of_route(i).getTransport()};
+			);
+			prevRoute := seq_of_route(i); --used to save the previous route location
+		);
+		IO`print("\n");
+		IO`print("Total travel time: ");
+		IO`print(totalTripDuration);
+		IO`println(" hours.");
+		IO`print("Total travel price: ");
+		IO`print(totalTripCost);
+		IO`println(" euros.");
+		IO`print("Total type of transport: ");
+		printTotalTypeOfTransportUsed(totalTypeOfTransport);
+		IO`print("\n");
 	);
-	)
 	
+	public printTotalTypeOfTransportUsed : set of Transport ==> ()
+	printTotalTypeOfTransportUsed(typeOfTransport) == (
+		dcl local_i : nat := 0;
+		for all transport in set typeOfTransport do (
+			if local_i=0
+				then 
+					IO`print(transport.getName())
+				else (
+					IO`print(" -- ");
+					IO`print(transport.getName());
+				);
+			local_i := local_i + 1;
+		);
+	
+	)
+		
 end Platform

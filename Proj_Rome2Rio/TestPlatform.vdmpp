@@ -106,7 +106,7 @@ operations
 		assertEqual(platform.getInsertedStart(),location1);
 		assertEqual(platform.getInsertedDestination(),location4);
 		
-		/* Test algorithm */
+		/* Test search algorithm */
 		platform.getGraph().searchLocationByID(location1.getID()).addRoute(route1);
 		platform.getGraph().searchLocationByID(location1.getID()).addRoute(route3);
 		platform.getGraph().searchLocationByID(location2.getID()).addRoute(route2);

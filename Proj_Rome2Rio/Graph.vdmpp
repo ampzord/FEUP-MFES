@@ -1,6 +1,6 @@
 class Graph
 /* 
-	Class that holds a set of Locations that represent Nodes. 
+	Class that holds a set of Locations that represent Nodes in the typical Graph-Node-Edge representation. 
 */
 
 instance variables
@@ -15,7 +15,7 @@ operations
 	  return self
   );
   
-    /* ------------------ Getters ------------------ */
+  /* ------------------ Getters ------------------ */
   
 	/* Returns a set of Locations(Nodes) */
   public getLocations : () ==> set of (Location)
@@ -30,21 +30,23 @@ operations
   
   /* Adds a location to the graph */
   public addLocation : Location ==> ()
-  addLocation(newLocation) == (
-  	locations := {newLocation} union locations;
+	  addLocation(newLocation) == (
+	  	locations := {newLocation} union locations;
   )
   pre not newLocation in set locations
   post newLocation in set locations;
   
   /* Removes a Location from the graph */
+  
   /* TODO - Missing to remove the edges from the nodes that contain this location */
   public removeLocation : Location ==> ()
-  removeLocation(deleteLocation) == (
-  	locations := locations \ {deleteLocation};
+	  removeLocation(deleteLocation) == (
+	  	locations := locations \ {deleteLocation};
   )
   pre deleteLocation in set locations
   post not deleteLocation in set locations;
   
+  /* Returns a location given an ID - if non-exist returns empty location */
   public searchLocationByID : nat ==> Location
   searchLocationByID(locationID) == (
   	dcl tempCity : Location;
@@ -55,6 +57,9 @@ operations
   	return tempCity;
   );
   
+  /* Verifies if a location by the given ID exists 
+  	 return true if it does and false if it doesn't
+  */
   public locationExistsByID : nat ==> bool
   locationExistsByID(locationID) == (
   	for all city in set locations do (
