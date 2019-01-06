@@ -57,11 +57,13 @@ operations
   	return price;
   );
   
+  /* Sets the new duration - Admin Only */
   public setDuration : nat1 ==> ()
   	setDuration(dur) == (
 	  	duration := dur;
   );
   
+  /* Sets the new price - Admin Only */
   public setPrice : nat1 ==> ()
 		setPrice(p) == (
 	  	price := p;

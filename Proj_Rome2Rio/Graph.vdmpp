@@ -23,6 +23,7 @@ operations
 	  	return locations;
   );
   
+  /* Returns the number of nodes(Locations) in a graph */
   public getSize : () ==> nat
 	  getSize() == (
 	  	return card locations;
@@ -37,8 +38,6 @@ operations
   post newLocation in set locations;
   
   /* Removes a Location from the graph */
-  
-  /* TODO - Missing to remove the edges from the nodes that contain this location */
   public removeLocation : Location ==> ()
 	  removeLocation(deleteLocation) == (
 	  	locations := locations \ {deleteLocation};

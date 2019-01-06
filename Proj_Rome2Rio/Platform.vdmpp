@@ -22,31 +22,37 @@ operations
   
   /* ------------------ Getters ------------------ */
   
+  /* Returns all the possible routes given from the user */
   public getAllPossibleRoutes : () ==> set of seq of Route
 		getAllPossibleRoutes() == (
 	  	return all_possible_routes;
 	  );
   
+  /* Returns all the possible routes size */
   public getAllPossibleRoutesSize : () ==> nat
 	  	getAllPossibleRoutesSize() == (
 	  	return card all_possible_routes
   	);
-  	
+  
+  /* Returns the user inserted start desired point */
   public getInsertedStart : () ==> Location
   getInsertedStart() == (
   	return insertedStart
   );
   
+  /* Returns the user inserted destination point */
   public getInsertedDestination : () ==> Location
   getInsertedDestination() == (
   	return insertedDestination
   );
   
+  /* Returns the graph that holds all the locations of the platform */
   public getGraph : () ==> Graph
   getGraph() == (
   	return graph
   );
   
+  /* Returns the number of locations in the platform */
   public getGraphSize : () ==> nat
 		getGraphSize() == (
 			return graph.getSize();
@@ -55,27 +61,31 @@ operations
 	
   /* ------------------ Setters ------------------ */
 
+	/* Sets a starting point for the user */
   public setStart : nat ==> ()
   setStart(start_pos) == (
   	if graph.locationExistsByID(start_pos)
   	then insertedStart := graph.searchLocationByID(start_pos)
   );
   
+  /* Sets a destination point for the user */
   public setDestination : nat ==> ()
 	  setDestination(destination_pos) == (
 	    if graph.locationExistsByID(destination_pos)
 	  	then insertedDestination := graph.searchLocationByID(destination_pos)
   );
   
-
-  
+  /* 
+  	Function that calculates all the possible routes from pointA to pointB 
+  	and saves them in all_possible_routes variable
+  */
   public getAllRoutes : () ==> () 
   getAllRoutes() == (
   	dcl routes : seq of Route := [];
   	getAllRoutesUtils(insertedStart, routes);
 	);
 	
-	
+	/* Auxiliar function for getAllRoutes to parse through each seq of Route */
 	public getAllRoutesUtils : Location * seq of Route ==> ()
 	getAllRoutesUtils(currLocation, seqRoutes) == (
 		for all route in set currLocation.getRoutes() do (
@@ -101,6 +111,7 @@ operations
 		);
 	);
 	
+	/* Returns a set of all the locations ID already visited */
 	public getVisitedLocations: seq of Route ==> set of nat
 	getVisitedLocations(route_sequence) == (
 		dcl locationsID : set of nat := {insertedStart.getID()};
@@ -110,6 +121,7 @@ operations
 		return locationsID;
 	);
 	
+	/* Function that prints the possible routes the user desires */
 	public printAllPossiblePaths : () ==> ()
 	printAllPossiblePaths() == (
 		IO`print("\n");
@@ -134,7 +146,7 @@ operations
 			IO`println("\n");
 			);
 	);
-	
+	/* function that prints the information of each individual route and also the total costs of everything */
 	public printRouteInfo : seq of Route ==> ()
 	printRouteInfo(seq_of_route) == (
 		dcl prevRoute : Route;
@@ -187,6 +199,7 @@ operations
 		IO`print("\n");
 	);
 	
+	/* function to print the types of transports used in a trip */
 	public printTotalTypeOfTransportUsed : set of Transport ==> ()
 	printTotalTypeOfTransportUsed(typeOfTransport) == (
 		dcl local_i : nat := 0;

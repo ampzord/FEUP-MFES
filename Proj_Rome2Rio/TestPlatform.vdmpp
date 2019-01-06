@@ -119,7 +119,6 @@ operations
 		assertEqual(platform.getInsertedStart(),location0);
 		assertEqual(platform.getInsertedDestination(),location3);
 		
-		/* Test search algorithm */
 		platform.getGraph().searchLocationByID(location0.getID()).addRoute(route0);
 		platform.getGraph().searchLocationByID(location0.getID()).addRoute(route2);
 		platform.getGraph().searchLocationByID(location1.getID()).addRoute(route1);
@@ -127,6 +126,7 @@ operations
 		assertEqual(platform.getGraph().searchLocationByID(location0.getID()).getRouteByID(0),route0);
 		assertEqual(card platform.getGraph().searchLocationByID(location0.getID()).getRoutes(), 2);
 		
+		/* Test search algorithm */
 		platform.getAllRoutes();
 		platform.printAllPossiblePaths();
 		
