@@ -57,5 +57,15 @@ operations
   	return price;
   );
   
+  public setDuration : nat1 ==> ()
+  	setDuration(dur) == (
+	  	duration := dur;
+  );
+  
+  public setPrice : nat1 ==> ()
+		setPrice(p) == (
+	  	price := p;
+  );
+  
 
 end Route

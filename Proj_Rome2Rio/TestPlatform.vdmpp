@@ -4,41 +4,46 @@ instance variables
 	
 	--Graph
 	graph : Graph := new Graph();
+	graph2 : Graph := new Graph();
 
 	--Platform
 	platform : Platform := new Platform(graph);
+	platform2 : Platform := new Platform(graph2);
 	
 	--Locations(ID,Name)
-	location1 : Location := new Location(0,"Oporto");
-	location2 : Location := new Location(1,"Lisbon");
-	location3 : Location := new Location(2,"Faro");
-	location4 : Location := new Location(3,"Madrid");
-	location5 : Location := new Location(4,"Paris");
-	location6 : Location := new Location(5,"London");
-	location7 : Location := new Location(6,"Rome");
-	location8 : Location := new Location(7,"Amsterdam");
-	location9 : Location := new Location(8,"Berlin");
-	location10 : Location := new Location(9,"Vienna");
-	location11 : Location := new Location(10,"Barcelona");
+	location0 : Location := new Location(0,"Oporto");
+	location1 : Location := new Location(1,"Lisbon");
+	location2 : Location := new Location(2,"Faro");
+	location3 : Location := new Location(3,"Madrid");
+	location4 : Location := new Location(4,"Paris");
+	location5 : Location := new Location(5,"London");
+	location6 : Location := new Location(6,"Rome");
+	location7 : Location := new Location(7,"Amsterdam");
+	location8 : Location := new Location(8,"Berlin");
+	location9 : Location := new Location(9,"Vienna");
+	location10 : Location := new Location(10,"Barcelona");
+	location100 : Location := new Location(100,"Tokyo");
 	
-		--Local Variable for testing
-	test_location :	set of Location := {location1};
-	
-	test_all_possible : set of seq of Route := {};	
+	--Local Variables for testing
+	test_location :	set of Location := {location0};
+	test_all_possible : set of seq of Route := {};
+
 	--Transports(ID,Name)
-	transport1 : Transport := new Transport(0,"Car");
-	transport2 : Transport := new Transport(1,"Train");
-	transport3 : Transport := new Transport(2,"Plane");
-	transport4 : Transport := new Transport(3,"Ferry");
-	transport5 : Transport := new Transport(4,"Bus");
+	transport0 : Transport := new Transport(0,"Car");
+	transport1 : Transport := new Transport(1,"Train");
+	transport2 : Transport := new Transport(2,"Plane");
+	transport3 : Transport := new Transport(3,"Ferry");
+	transport4 : Transport := new Transport(4,"Bus");
+	transport100 : Transport := new Transport(100,"Space Shuttle");
 	
 	--Routes(ID,Duration,DestinationTransport,Price)
-	route1 : Route := new Route(0,3,location2,transport1,20);
-	route2 : Route := new Route(1,3,location4,transport2,30);
-	route3 : Route := new Route(2,3,location4,transport3,40);
-	route4 : Route := new Route(3,3,location4,transport4,50);
-	route5 : Route := new Route(4,3,location5,transport5,60);
-	route6 : Route := new Route(5,3,location1,transport1,70);
+	route0 : Route := new Route(0,3,location1,transport0,20);
+	route1 : Route := new Route(1,3,location3,transport1,30);
+	route2 : Route := new Route(2,3,location3,transport2,40);
+	route3 : Route := new Route(3,3,location3,transport3,50);
+	route4 : Route := new Route(4,3,location4,transport4,60);
+	route5 : Route := new Route(5,3,location0,transport0,70);
+	route100 : Route := new Route(100,5,location0,transport100,100); 
 	
 operations
 	
@@ -46,32 +51,37 @@ operations
 	
 	public testTransport : () ==> ()
 	testTransport() == (
-		assertEqual(transport1.getID(),0);
-		assertEqual(transport1.getName(),"Car")
+		assertEqual(transport100.getID(),100);
+		assertEqual(transport100.getName(),"Space Shuttle")
 	);
 	
 		------------- LOCATION TEST----------------------
 	
 	public testLocation : () ==> ()
 	testLocation() == (
-		assertEqual(location1.getID(),0);
-		assertEqual(location1.getName(),"Oporto");
-		assertEqual(card location1.getRoutes(),0);
-		location1.addRoute(route2);
-		assertEqual(card location1.getRoutes(),1);
-		location1.removeRoute(route2);
-		assertEqual(card location1.getRoutes(),0)
+		assertEqual(location100.getID(),100);
+		assertEqual(location100.getName(),"Tokyo");
+		assertEqual(card location100.getRoutes(),0);
+		location100.addRoute(route100);
+		assertEqual(card location100.getRoutes(),1);
+		location100.removeRoute(route100);
+		assertEqual(location100.routeExistsByID(100), false);
+		assertEqual(card location100.getRoutes(),0)
 	);
 	
 			------------- ROUTE TEST----------------------
 	
 	public testRoute : () ==> ()
 	testRoute() == (
-		assertEqual(route1.getID(),0);
-		assertEqual(route1.getDestination(),location2);
-		assertEqual(route1.getDuration(),3);
-		assertEqual(route1.getTransport(),transport1);
-		assertEqual(route1.getPrice(),20);
+		assertEqual(route100.getID(),100);
+		assertEqual(route100.getDestination(),location0);
+		assertEqual(route100.getDuration(),5);
+		assertEqual(route100.getTransport(),transport100);
+		assertEqual(route100.getPrice(),100);
+		route100.setPrice(90);
+		route100.setDuration(3);
+		assertEqual(route100.getPrice(),90);
+		assertEqual(route100.getDuration(),3);
 	);
 	
 				------------- GRAPH TEST----------------------
@@ -79,55 +89,71 @@ operations
 	public testGraph : () ==> ()
 	testGraph() == (
 		assertEqual(graph.getSize(),0);
+		graph.addLocation(location0);
 		graph.addLocation(location1);
-		graph.addLocation(location2);
 		assertEqual(graph.getSize(),2);
-		assertTrue(graph.locationExistsByID(location2.getID()));
-		assertEqual(graph.searchLocationByID(location2.getID()), location2);
-		graph.removeLocation(location2);
-		assertEqual(graph.locationExistsByID(location2.getID()),false);
+		assertTrue(graph.locationExistsByID(location1.getID()));
+		assertEqual(graph.searchLocationByID(location1.getID()), location1);
+		graph.removeLocation(location1);
+		assertEqual(graph.locationExistsByID(location1.getID()),false);
 		assertEqual(graph.getSize(),1);
-		assertTrue(graph.getLocations() = test_location)
+		assertTrue(graph.getLocations() = test_location);
+		graph.removeLocation(location0);
 	);
 	
 					------------- PLATFORM TEST----------------------
 	
 	public testPlatform : () ==> ()
 	testPlatform() == (
+		
 		assertEqual(platform.getAllPossibleRoutesSize(), 0);
 		assertEqual(platform.getAllPossibleRoutes(), {});
 		assertEqual(platform.getGraph(),graph);
 		assertEqual(platform.getGraphSize(),0);
+		
+		platform.getGraph().addLocation(location0);
 		platform.getGraph().addLocation(location1);
-		platform.getGraph().addLocation(location2);
-		platform.getGraph().addLocation(location4);
+		platform.getGraph().addLocation(location3);
 		platform.setStart(0);
 		platform.setDestination(3);
-		assertEqual(platform.getInsertedStart(),location1);
-		assertEqual(platform.getInsertedDestination(),location4);
+		assertEqual(platform.getInsertedStart(),location0);
+		assertEqual(platform.getInsertedDestination(),location3);
 		
 		/* Test search algorithm */
+		platform.getGraph().searchLocationByID(location0.getID()).addRoute(route0);
+		platform.getGraph().searchLocationByID(location0.getID()).addRoute(route2);
 		platform.getGraph().searchLocationByID(location1.getID()).addRoute(route1);
-		platform.getGraph().searchLocationByID(location1.getID()).addRoute(route3);
-		platform.getGraph().searchLocationByID(location2.getID()).addRoute(route2);
-		assertTrue(platform.getGraph().searchLocationByID(location1.getID()).routeExistsByID(0));
-		assertEqual(platform.getGraph().searchLocationByID(location1.getID()).getRouteByID(0),route1);
-		assertEqual(card platform.getGraph().searchLocationByID(location1.getID()).getRoutes(), 2);
-		
-		
+		assertTrue(platform.getGraph().searchLocationByID(location0.getID()).routeExistsByID(0));
+		assertEqual(platform.getGraph().searchLocationByID(location0.getID()).getRouteByID(0),route0);
+		assertEqual(card platform.getGraph().searchLocationByID(location0.getID()).getRoutes(), 2);
 		
 		platform.getAllRoutes();
 		platform.printAllPossiblePaths();
 		
 	);
+	
+	public testNoPossibleRoutes : () ==> ()
+	testNoPossibleRoutes() == (
+		platform2.getGraph().addLocation(location0);
+		platform2.getGraph().addLocation(location1);
+		platform2.getGraph().addLocation(location3);
+		platform2.setStart(0);
+		platform2.setDestination(3);
+		platform2.getGraph().searchLocationByID(location0.getID()).addRoute(route0);
+		
+		platform2.getAllRoutes();
+		platform2.printAllPossiblePaths();
+	);
 		
 	public static main: () ==> ()
 		main() == (
-			/*new TestPlatform().testTransport();
+			new TestPlatform().testTransport();
 			new TestPlatform().testLocation();
 			new TestPlatform().testRoute();
-			new TestPlatform().testGraph();*/
+			new TestPlatform().testGraph();
 			new TestPlatform().testPlatform();
+			new TestPlatform().testNoPossibleRoutes();
+			
 		);
 		
 		

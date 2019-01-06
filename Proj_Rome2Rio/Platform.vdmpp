@@ -131,6 +131,7 @@ operations
 		)
 		else (
 			IO`print("Not Possible to reach the Destination from that Starting Point!");
+			IO`println("\n");
 			);
 	);
 	
@@ -149,9 +150,9 @@ operations
 						IO`print(seq_of_route(i).getDestination().getName());
 						IO`print(" transport: ");
 						IO`print(seq_of_route(i).getTransport().getName());
-						IO`print(" duration of: ");
+						IO`print(" duration: ");
 						IO`print(seq_of_route(i).getDuration());
-						IO`print(" with a Price of: ");
+						IO`print(" with Price: ");
 						IO`println(seq_of_route(i).getPrice());
 						totalTripDuration := totalTripDuration + seq_of_route(i).getDuration();
 						totalTripCost := totalTripCost + seq_of_route(i).getPrice();
@@ -164,9 +165,9 @@ operations
 						IO`print(seq_of_route(i).getDestination().getName());
 						IO`print(" transport: ");
 						IO`print(seq_of_route(i).getTransport().getName());
-						IO`print(" duration of: ");
+						IO`print(" duration: ");
 						IO`print(seq_of_route(i).getDuration());
-						IO`print(" with a Price of: ");
+						IO`print(" with Price: ");
 						IO`println(seq_of_route(i).getPrice());
 						totalTripDuration := totalTripDuration + seq_of_route(i).getDuration();
 						totalTripCost := totalTripCost + seq_of_route(i).getPrice();
@@ -181,7 +182,7 @@ operations
 		IO`print("Total travel price: ");
 		IO`print(totalTripCost);
 		IO`println(" euros.");
-		IO`print("Total type of transport: ");
+		IO`print("Types of transport used: ");
 		printTotalTypeOfTransportUsed(totalTypeOfTransport);
 		IO`print("\n");
 	);
