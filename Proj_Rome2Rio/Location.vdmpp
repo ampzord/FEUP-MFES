@@ -43,10 +43,10 @@ operations
   
   /* Returns a Route with a given ID, if non-existent returns a empty Route */
   public getRouteByID : nat ==> Route
-  getRouteByID(id) == (
+  getRouteByID(newID) == (
   	  	dcl tempRoute : Route;
   	for all route in set routes do (
-  		if route.getID() = id 
+  		if route.getID() = newID 
   		then tempRoute := route;
   	);
   	return tempRoute;

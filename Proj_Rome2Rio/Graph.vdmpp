@@ -2,7 +2,8 @@ class Graph
 /* 
 	Class that holds a set of Locations that represent Nodes in the typical Graph-Node-Edge representation. 
 */
-
+types
+values
 instance variables
   private locations:set of (Location); /* represents nodes in a typical graph */
   
@@ -67,11 +68,9 @@ operations
   	);
   	return false;
   );
-  
-  
+ 
+functions
 
-  	
-  
-  	
+traces
 
 end Graph
