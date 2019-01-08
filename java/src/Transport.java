@@ -33,6 +33,6 @@ public class Transport {
 
   public String toString() {
 
-    return "Transport{" + "id := " + Utils.toString(id) + ", name := " + Utils.toString(name) + "}";
+    return "Transport{" + Utils.toString(name) + "}";
   }
 }

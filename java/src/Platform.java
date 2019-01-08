@@ -1,5 +1,7 @@
 
 import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
+
 import org.overture.codegen.runtime.*;
 
 @SuppressWarnings("all")
@@ -56,6 +58,8 @@ public class Platform {
     if (graph.locationExistsByID(start_pos)) {
       insertedStart = graph.searchLocationByID(start_pos);
     }
+    else
+    	System.out.println("Start doesnt exist");
   }
 
   public void setDestination(final Number destination_pos) {
@@ -63,6 +67,8 @@ public class Platform {
     if (graph.locationExistsByID(destination_pos)) {
       insertedDestination = graph.searchLocationByID(destination_pos);
     }
+    else
+    	System.out.println("Destination doesnt exist");
   }
 
   public void getAllRoutes() {
@@ -237,4 +243,142 @@ public class Platform {
         + Utils.toString(all_possible_routes)
         + "}";
   }
+  
+  public static int getLocation(Graph graph2, String name){
+	  for(int i=0; i<graph2.getLocations().size();i++){
+		  if(name.equals(((Location) graph2.getLocations().toArray()[i]).getName())){
+			  Number aa=  ((Location) graph2.getLocations().toArray()[i]).getID();
+			  System.out.println( "id = " +  aa );
+			  return (int) aa;
+		  }
+	  }
+	  return -1;
+  }
+  
+  public static void main(String [ ] args)
+  {
+	  
+	  Graph graph = new Graph();
+
+	  Platform platform = new Platform(graph);
+	  
+	  
+	  Location location0 = new Location(0,"Oporto");
+	  Location location1 = new Location(1,"Lisbon");
+	  Location location2 = new Location(2,"Faro");
+	  Location location3 = new Location(3,"Madrid");
+	  Location location4 = new Location(4,"Paris");
+	  Location location5 = new Location(5,"London");
+	  
+	  /**
+		location6 : Location := new Location(6,"Rome");
+		location7 : Location := new Location(7,"Amsterdam");
+		location8 : Location := new Location(8,"Berlin");
+		location9 : Location := new Location(9,"Vienna");
+		location10 : Location := new Location(10,"Barcelona");
+		location100 : Location := new Location(100,"Tokyo");
+*/
+	  Transport	transport0 = new Transport(0,"Car");
+	  Transport transport1 = new Transport(1,"Train");
+	  Transport transport2 = new Transport(2,"Plane");
+	  Transport transport3 = new Transport(3,"Ferry");
+	  Transport transport4 = new Transport(4,"Bus");
+	  
+	  	Route route0 = new Route(0,3,location1,transport0,20);
+	  	Route route1 = new Route(1,5,location3,transport1,30);
+	  	Route route2 = new Route(2,7,location3,transport2,40);
+	  	Route route3 = new Route(3,7,location3,transport3,50);
+	  	Route route4 = new Route(4,6,location4,transport4,60);
+	  	Route route5 = new Route(5,8,location5,transport2,111);
+	  	
+	  	platform.getGraph().addLocation(location0);
+		platform.getGraph().addLocation(location1);
+		platform.getGraph().addLocation(location3);
+		platform.getGraph().addLocation(location5);
+
+		
+		platform.getGraph().searchLocationByID(location0.getID()).addRoute(route0);
+		platform.getGraph().searchLocationByID(location0.getID()).addRoute(route1);
+		platform.getGraph().searchLocationByID(location1.getID()).addRoute(route2);
+
+		
+	  
+	  
+      System.out.println("Welcome to Rome2Rio");
+      System.out.println("-------------------");
+
+      
+      Scanner scanner = new Scanner( System.in );
+/**
+      System.out.print( "Insert start:" );
+      // 3. Use the Scanner to read a line of text from the user.
+      String start = scanner.nextLine();
+      System.out.print( "Insert Destination:" );
+      // 3. Use the Scanner to read a line of text from the user.
+      String dest = scanner.nextLine();
+
+     
+      
+      int st = platform.getLocation(platform.getGraph(),start);
+      int destination = platform.getLocation(platform.getGraph(),dest);
+     
+      
+      platform.setStart(0);
+      platform.setDestination(1);
+      System.out.println( "startID = " + platform.getInsertedStart().getName() );
+      System.out.println( "destinationID = " + platform.getInsertedDestination().getName() );
+      
+      platform.getAllRoutes();
+      platform.printAllPossiblePaths();
+    	  */
+     
+      System.out.println( "------Admin-----" );
+     
+     
+      int  inserted = scanner.nextInt();
+
+      if(inserted == 1 ){
+    	  System.out.println( "Insert a new Route Oporto-Londres" );
+          System.out.println("Routes:"+ platform.getGraph().searchLocationByID(location0.getID()).getRoutes());
+          System.out.println("addind:"+ route5 );
+          platform.getGraph().searchLocationByID(location0.getID()).addRoute(route5);
+          System.out.println("Routes:"+ platform.getGraph().searchLocationByID(location0.getID()).getRoutes());
+      }
+      if(inserted ==2){
+          System.out.println( "Edit the Route Oporto-Lisbon" );
+          System.out.println(platform.getGraph().searchLocationByID(location0.getID()).getRouteByID(0));
+          System.out.println( "Changing duration = 5 and price=55" );
+          platform.getGraph().searchLocationByID(location0.getID()).getRouteByID(0).setDuration(5);
+          platform.getGraph().searchLocationByID(location0.getID()).getRouteByID(0).setPrice(55);
+          System.out.println(platform.getGraph().searchLocationByID(location0.getID()).getRouteByID(0));
+      }
+      if(inserted == 3){
+          System.out.println( "Removing the Route Oporto-Lisbon" );
+          System.out.println("Routes:"+ platform.getGraph().searchLocationByID(location0.getID()).getRoutes());
+          System.out.println("number of routes:"+ platform.getGraph().searchLocationByID(location0.getID()).getRoutes().size());
+          System.out.println( "After removing:" );
+          platform.getGraph().searchLocationByID(location0.getID()).removeRoute(route0);
+          System.out.println("Routes:"+ platform.getGraph().searchLocationByID(location0.getID()).getRoutes());
+          System.out.println("number of routes:"+ platform.getGraph().searchLocationByID(location0.getID()).getRoutes().size());
+
+      }
+      
+      
+
+
+     
+      
+      
+
+      
+      
+      
+
+
+  
+  }
+  
+  
+  
+  
 }
